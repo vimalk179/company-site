@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saket TechWorks — Web, Marketing, Software & Faculty Services | Rewa, MP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#17213D;
+    --navy-deep:#0F1729;
+    --navy-mid:#24345C;
+    --teal:#1FB8A6;
+    --amber:#F2A93B;
+    --off:#F6F4EF;
+    --ink:#17213D;
+    --muted:#5B6478;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif; background:var(--off); color:var(--ink);}
+  h1,h2,h3{font-family:'Sora',sans-serif; font-weight:700;}
+  a{text-decoration:none; color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+
+  /* ---- NAV ---- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem 5%;
+    background:rgba(15,23,41,0);
+    transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  }
+  header.scrolled{background:rgba(15,23,41,0.96); padding:0.75rem 5%; box-shadow:0 6px 20px rgba(0,0,0,.2);}
+  .brand{display:flex; align-items:center; gap:.6rem; font-family:'Sora',sans-serif; font-weight:800; font-size:1.25rem; color:var(--off);}
+  .brand .mark{
+    width:34px; height:34px; border-radius:8px;
+    background:linear-gradient(135deg, var(--teal), var(--amber));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; color:var(--navy-deep); font-weight:800;
+  }
+  nav ul{display:flex; gap:2.1rem; align-items:center;}
+  nav a{color:rgba(246,244,239,.85); font-size:.9rem; font-weight:500; letter-spacing:.01em; position:relative;}
+  nav a:not(.nav-cta)::after{content:''; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:var(--teal); transition:width .25s ease;}
+  nav a:not(.nav-cta):hover::after{width:100%;}
+  .nav-cta{background:var(--teal); color:var(--navy-deep); padding:.55rem 1.2rem; border-radius:6px; font-weight:600;}
+  .menu-toggle{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer;}
+  .menu-toggle span{width:24px; height:2px; background:var(--off);}
+
+  /* ---- HERO ---- */
+  .hero{
+    min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden;
+    background:radial-gradient(circle at 20% 25%, rgba(31,184,166,.14) 0, transparent 45%),
+               radial-gradient(circle at 85% 80%, rgba(242,169,59,.12) 0, transparent 45%),
+               linear-gradient(150deg, var(--navy-deep) 0%, var(--navy) 60%, var(--navy-mid) 100%);
+    padding:0 5%;
+  }
+  .hero-inner{
+    max-width:1180px; margin:0 auto; width:100%;
+    display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center;
+    padding-top:5rem;
+  }
+  .eyebrow{
+    display:inline-block; color:var(--teal); text-transform:uppercase; letter-spacing:.2em;
+    font-size:.75rem; font-weight:600; margin-bottom:1.1rem;
+  }
+  .hero h1{color:var(--off); font-size:clamp(2.3rem,4.6vw,3.7rem); line-height:1.12; margin-bottom:1.3rem;}
+  .hero h1 span{color:var(--teal);}
+  .hero p{color:rgba(246,244,239,.78); font-size:1.06rem; line-height:1.75; max-width:34rem; margin-bottom:2rem;}
+  .cta-row{display:flex; gap:1rem; flex-wrap:wrap;}
+  .btn{padding:.9rem 1.7rem; border-radius:6px; font-weight:600; font-size:.92rem; display:inline-block; transition:transform .25s ease, box-shadow .25s ease;}
+  .btn-primary{background:var(--teal); color:var(--navy-deep);}
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 12px 26px rgba(31,184,166,.3);}
+  .btn-outline{border:1.5px solid rgba(246,244,239,.4); color:var(--off);}
+  .btn-outline:hover{border-color:var(--amber); color:var(--amber);}
+
+  /* network diagram */
+  .diagram{position:relative; width:100%; aspect-ratio:1/1; max-width:420px; margin:0 auto;}
+  .diagram svg{width:100%; height:100%; overflow:visible;}
+  .node-line{fill:none; stroke:rgba(31,184,166,.55); stroke-width:2; stroke-dasharray:6 400; stroke-dashoffset:400; animation:flow 1.8s ease-out forwards;}
+  .node-line.l2{animation-delay:.25s;}
+  .node-line.l3{animation-delay:.5s;}
+  .node-line.l4{animation-delay:.75s;}
+  @keyframes flow{to{stroke-dashoffset:0;}}
+  .node-dot{fill:var(--navy-deep); stroke:var(--teal); stroke-width:2;}
+  .node-core{fill:var(--teal);}
+  .node-label{font-family:'Inter',sans-serif; font-size:9px; fill:rgba(246,244,239,.85); font-weight:600;}
+
+  /* ---- SECTION SHARED ---- */
+  section{padding:6rem 5%;}
+  .section-head{max-width:640px; margin:0 auto 3.2rem; text-align:center;}
+  .section-head .eyebrow{color:var(--teal);}
+  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem); color:var(--navy-deep);}
+  .section-head p{color:var(--muted); margin-top:.8rem; line-height:1.7;}
+
+  /* ---- SERVICES ---- */
+  .services{background:var(--off);}
+  .service-grid{max-width:1120px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem;}
+  .service-card{
+    background:#fff; border:1px solid rgba(23,33,61,.08); border-radius:10px; padding:2.1rem 1.6rem;
+    opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .service-card.in-view{opacity:1; transform:translateY(0);}
+  .service-card:hover{border-color:var(--teal); box-shadow:0 16px 30px rgba(23,33,61,.08); transform:translateY(-4px);}
+  .service-icon{width:48px; height:48px; border-radius:10px; background:linear-gradient(135deg, rgba(31,184,166,.14), rgba(242,169,59,.14)); display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem;}
+  .service-icon svg{width:24px; height:24px;}
+  .service-card h3{font-size:1.08rem; color:var(--navy-deep); margin-bottom:.6rem;}
+  .service-card p{font-size:.9rem; color:var(--muted); line-height:1.6;}
+
+  /* ---- ABOUT ---- */
+  .about{background:var(--navy-deep); color:var(--off);}
+  .about-grid{max-width:1080px; margin:0 auto; display:grid; grid-template-columns:.9fr 1.1fr; gap:3.5rem; align-items:center;}
+  .founder-card{
+    background:var(--navy-mid); border-radius:14px; padding:2.4rem; text-align:center;
+    border:1px solid rgba(31,184,166,.25);
+  }
+  .avatar{
+    width:96px; height:96px; border-radius:50%; margin:0 auto 1.2rem;
+    background:linear-gradient(135deg, var(--teal), var(--amber));
+    display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800; color:var(--navy-deep);
+  }
+  .founder-card h3{color:var(--off); font-size:1.2rem; margin-bottom:.3rem;}
+  .founder-card .role{color:var(--teal); font-size:.85rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase;}
+  .about-text p{color:rgba(246,244,239,.8); line-height:1.85; margin-bottom:1.1rem; font-size:1.02rem;}
+  .about-text .eyebrow{color:var(--amber);}
+
+  /* ---- WHY LOCAL ---- */
+  .why{background:var(--off);}
+  .why-grid{max-width:1080px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem;}
+  .why-item{text-align:center; padding:1.5rem 1rem;}
+  .why-item .num{
+    width:44px; height:44px; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center;
+    background:rgba(31,184,166,.12); color:var(--teal); font-weight:700; font-family:'Sora',sans-serif;
+  }
+  .why-item h4{font-size:1rem; margin-bottom:.5rem; color:var(--navy-deep);}
+  .why-item p{font-size:.87rem; color:var(--muted); line-height:1.6;}
+
+  /* ---- CONTACT ---- */
+  .contact{background:var(--navy); color:var(--off);}
+  .contact-grid{max-width:1080px; margin:0 auto; display:grid; grid-template-columns:.9fr 1.1fr; gap:3rem;}
+  .contact-cards{display:flex; flex-direction:column; gap:1.1rem;}
+  .contact-card{
+    background:var(--navy-mid); border-radius:10px; padding:1.3rem 1.5rem; display:flex; align-items:center; gap:1rem;
+    border:1px solid rgba(31,184,166,.18); transition:border-color .25s ease;
+  }
+  .contact-card:hover{border-color:var(--teal);}
+  .contact-card svg{width:22px; height:22px; flex-shrink:0; color:var(--teal);}
+  .contact-card a, .contact-card span{color:var(--off); font-size:.95rem; font-weight:500;}
+  .contact-card .label{display:block; color:rgba(246,244,239,.55); font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.15rem;}
+
+  form{display:flex; flex-direction:column; gap:1rem;}
+  form input, form textarea{
+    width:100%; padding:.85rem 1rem; border-radius:8px; border:1px solid rgba(246,244,239,.2);
+    background:rgba(246,244,239,.06); color:var(--off); font-family:'Inter',sans-serif; font-size:.92rem;
+  }
+  form input::placeholder, form textarea::placeholder{color:rgba(246,244,239,.45);}
+  form input:focus, form textarea:focus{outline:none; border-color:var(--teal);}
+  form textarea{resize:vertical; min-height:110px;}
+  .form-note{font-size:.8rem; color:rgba(246,244,239,.5); line-height:1.6;}
+
+  /* ---- FOOTER ---- */
+  footer{background:var(--navy-deep); color:rgba(246,244,239,.6); padding:2.5rem 5%; text-align:center; font-size:.85rem;}
+  footer .brand{justify-content:center; margin-bottom:.8rem;}
+
+  @media (max-width:900px){
+    nav ul{
+      position:fixed; top:0; right:0; height:100vh; width:72%; max-width:300px;
+      background:var(--navy-deep); flex-direction:column; padding:6rem 2rem; gap:1.6rem;
+      transform:translateX(100%); transition:transform .35s ease; align-items:flex-start;
+    }
+    nav ul.open{transform:translateX(0);}
+    .menu-toggle{display:flex;}
+    .hero-inner{grid-template-columns:1fr; text-align:center; padding-top:6rem;}
+    .hero p{margin-left:auto; margin-right:auto;}
+    .cta-row{justify-content:center;}
+    .diagram{order:-1; max-width:280px;}
+    .service-grid{grid-template-columns:1fr 1fr;}
+    .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:520px){
+    .service-grid, .why-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="brand"><span class="mark">ST</span>Saket TechWorks</div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <nav><ul id="navList">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul></nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Based in Rewa, Madhya Pradesh</span>
+      <h1>We build your <span>website</span>, grow your <span>reach</span>, and support your <span>tech</span>.</h1>
+      <p>Saket TechWorks helps local businesses and educational institutions with website design, digital promotion, software development support, and visiting faculty programs — all under one roof, right here in Rewa.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+    <div class="diagram">
+      <svg viewBox="0 0 300 300">
+        <path class="node-line l1" d="M150,150 L150,55" />
+        <path class="node-line l2" d="M150,150 L235,110" />
+        <path class="node-line l3" d="M150,150 L235,195" />
+        <path class="node-line l4" d="M150,150 L65,205" />
+        <circle class="node-dot" cx="150" cy="55" r="26"/>
+        <text class="node-label" x="150" y="59" text-anchor="middle">Web</text>
+        <circle class="node-dot" cx="235" cy="110" r="26"/>
+        <text class="node-label" x="235" y="114" text-anchor="middle">Ads</text>
+        <circle class="node-dot" cx="235" cy="195" r="26"/>
+        <text class="node-label" x="235" y="199" text-anchor="middle">Dev</text>
+        <circle class="node-dot" cx="65" cy="205" r="26"/>
+        <text class="node-label" x="65" y="209" text-anchor="middle">Faculty</text>
+        <circle class="node-core" cx="150" cy="150" r="30"/>
+        <text class="node-label" x="150" y="154" text-anchor="middle" style="fill:#0F1729; font-weight:700;">STW</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-head">
+    <span class="eyebrow">What We Do</span>
+    <h2>Four ways we help you grow</h2>
+    <p>From a first website to a full teaching partnership with your institution.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1FB8A6" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".5" fill="#1FB8A6"/></svg></div>
+      <h3>Website Design & Development</h3>
+      <p>Custom, mobile-friendly websites for shops, clinics, institutes, and startups — built to load fast and look sharp on any screen.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></div>
+      <h3>Promotion & Advertisement</h3>
+      <p>Social media pages, local ad campaigns, and simple marketing plans that get your business noticed in and around Rewa.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1FB8A6" stroke-width="2"><path d="M8 4L4 8l4 4"/><path d="M16 4l4 4-4 4"/><path d="M12 3l-2 18"/></svg></div>
+      <h3>Software Development Support</h3>
+      <p>Help building, fixing, or maintaining software and apps for your business — from small tools to ongoing technical support.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2A93B" stroke-width="2"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+      <h3>Visiting Faculty Programs</h3>
+      <p>Guest lectures and technical training sessions for colleges and universities on web development, software, and digital skills.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="founder-card">
+      <div class="avatar">VS</div>
+      <h3>Vimal Saket</h3>
+      <div class="role">Founder, Saket TechWorks</div>
+    </div>
+    <div class="about-text">
+      <span class="eyebrow">Who We Are</span>
+      <h2 style="color:var(--off); margin:.8rem 0 1.2rem; font-size:2rem;">Started in Rewa, built for Rewa</h2>
+      <p>Saket TechWorks is a Rewa-based company started by Vimal Saket to bring practical, affordable technology support to local businesses and educational institutions — without needing to look outside the city for it.</p>
+      <p>Whether it's a shop that needs its first website, a college that wants a guest expert for a workshop, or a business that needs ongoing software support, the goal is the same: solid work, explained in plain language, from someone based right here.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="section-head">
+    <span class="eyebrow">Why Work With Us</span>
+    <h2>Local, direct, and practical</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="num">1</div>
+      <h4>Local presence</h4>
+      <p>Based in Rewa — easy to meet in person, not just over a call.</p>
+    </div>
+    <div class="why-item">
+      <div class="num">2</div>
+      <h4>Fair pricing</h4>
+      <p>Rates built for local businesses and institutions, not big-city budgets.</p>
+    </div>
+    <div class="why-item">
+      <div class="num">3</div>
+      <h4>Direct support</h4>
+      <p>You talk to the person doing the work, not a call center.</p>
+    </div>
+    <div class="why-item">
+      <div class="num">4</div>
+      <h4>Teaching experience</h4>
+      <p>Comfortable in a classroom as well as a codebase.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-head" style="color:var(--off);">
+    <span class="eyebrow">Get In Touch</span>
+    <h2 style="color:var(--off);">Let's talk about your project</h2>
+    <p style="color:rgba(246,244,239,.7);">Reach out directly, or send a message and I'll get back to you.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-cards">
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+        <div><span class="label">Call / WhatsApp</span><a href="tel:+918800504775">+91 88005 04775</a></div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        <div><span class="label">Email</span><a href="mailto:vimalk179@gmail.com">vimalk179@gmail.com</a></div>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><span class="label">Location</span><span>Rewa, Madhya Pradesh – 486441</span></div>
+      </div>
+    </div>
+    <form onsubmit="handleSubmit(event)">
+      <input type="text" placeholder="Your name" required>
+      <input type="email" placeholder="Your email" required>
+      <input type="tel" placeholder="Your phone number">
+      <textarea placeholder="Tell me a bit about your project or requirement"></textarea>
+      <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer;">Send Message</button>
+      <p class="form-note" id="formNote">This form currently opens your email app to send the message. Once this site is hosted, it can be connected to a free form service so messages come straight to your inbox.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="brand"><span class="mark">ST</span>Saket TechWorks</div>
+  <p>© 2026 Saket TechWorks, Rewa. Built by Vimal Saket.</p>
+</footer>
+
+<script>
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
+
+  const toggle = document.getElementById('menuToggle');
+  const navList = document.getElementById('navList');
+  toggle.addEventListener('click', () => navList.classList.toggle('open'));
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+
+  const cards = document.querySelectorAll('.service-card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in-view'), i * 100);
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.15});
+  cards.forEach(c => io.observe(c));
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const inputs = e.target.querySelectorAll('input, textarea');
+    const [name, email, phone, message] = inputs;
+    const subject = encodeURIComponent('New enquiry from ' + name.value + ' via website');
+    const body = encodeURIComponent(
+      'Name: ' + name.value + '\nEmail: ' + email.value + '\nPhone: ' + phone.value + '\n\nMessage:\n' + message.value
+    );
+    window.location.href = 'mailto:vimalk179@gmail.com?subject=' + subject + '&body=' + body;
+  }
+</script>
+
+</body>
+</html>
